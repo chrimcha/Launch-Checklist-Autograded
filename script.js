@@ -14,22 +14,16 @@ window.addEventListener("load", function() {
     // })
     
     //eventlistener for form bottom formSubmit
-    let submitButton = document.getElementById("formSubmit");
+    let form = document.querySelector("form");
 
-    submitButton.addEventListener("click", function() {
-        let list = document.getElementById("input[name=faultyItems]");
+    form.addEventListener("submit", function(event) {        
+        let list = document.getElementById("faultyItems");
         let pilot = document.querySelector("input[name=pilotName]");
         let copilot = document.querySelector("input[name=copilotName]");
         let fuelLevel = document.querySelector("input[name=fuelLevel]");
         let cargoMass = document.querySelector("input[name=cargoMass]");
-        // list.setAttribute("style", "visibility: hidden;");
-        // console.log(pilot.value);
-        // console.log(copilot.value);
-        // console.log(fuelLevel.value);
-        // console.log(cargoMass.value);
-        // console.log("completed");
-        // alert("All fields are required!");
-        formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass);
         
+        formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass);
+        event.preventDefault();
     });
  });
