@@ -4,17 +4,18 @@ require('cross-fetch/polyfill');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     // Here is the HTML formatting for our mission target div.
-    /*
+    const destination = document.getElementById("missionTarget");
+    destination.innerHTML = `
                  <h2>Mission Destination</h2>
                  <ol>
-                     <li>Name: </li>
-                     <li>Diameter: </li>
+                     <li>Name: ${name}</li>
+                     <li>Diameter: ${diameter}</li>
                      <li>Star: ${star}</li>
-                     <li>Distance from Earth: </li>
-                     <li>Number of Moons: </li>
+                     <li>Distance from Earth: ${distance}</li>
+                     <li>Number of Moons: ${moons}</li>
                  </ol>
-                 <img src="">
-    */
+                 <img src="${imageUrl}">`;
+    
  }
  
  function validateInput(testInput) {
@@ -67,7 +68,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         h2.innerHTML = `Shuttle Not Ready for Launch`;
         h2.setAttribute("style", "color: red;");
     }
-    
+
 // If the shuttle is ready to launch, change the text of launchStatus to green and display “Shuttle is ready for launch”.
     if (pilot.value !== "" && copilot.value !== "" && Number(fuelLevel.value) > 10000 && Number(cargoMass.value) < 10000) {
         list.setAttribute("style", "visibility: visible;");
@@ -87,13 +88,22 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  async function myFetch() {
      let planetsReturned;
  
-     planetsReturned = await fetch().then( function(response) {
-         });
+     planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+        response.json().then( function(json) {
+            console.log(json);
+        });
+     });
  
      return planetsReturned;
  }
  
  function pickPlanet(planets) {
+    let planet = {};
+
+    //get random number and get planet with that index
+    planet = Math.random();
+
+    return planet
  }
  
  module.exports.addDestinationInfo = addDestinationInfo;
