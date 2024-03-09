@@ -39,29 +39,25 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
     if (pilot.value === "" || copilot.value === "" || fuelLevel.value === "" || cargoMass.value === "") {
         alert("All fields are required!");
-        document.preventDefault();
     }
     
     if (validateInput(pilot.value) !== "Not a Number" || validateInput(copilot.value) !== "Not a Number") {
         alert("Invalid Name input!");
-        document.preventDefault();
     }
 
 // change faultyItems to visible with an updated fuel status stating that there is not enough fuel for the journey. // The text of the h2 element, launchStatus, should also change to “Shuttle not ready for launch” and the color should change to red.  
     if (validateInput(fuelLevel.value) !== "Is a Number") {
-        alert("Invalid Fuel input!");
-        document.preventDefault();
+        // alert("Invalid Fuel input!");
     } else if (Number(fuelLevel.value) < 10000) {
-        list.style.visibility = 'visible';
+        list.setAttribute("style", "visibility: visible;");
         fuelStatus.innerHTML = `Fuel level too low for launch`;
         h2.innerHTML = `Shuttle Not Ready for Launch`;
-        h2.setAttribute("style", "color: red;");
+        h2.setAttribute("style", "color: red;");        
     }
 
 // change the list to visible with an updated cargo status stating that there is too much mass for the shuttle to take off. // The text of launchStatus should also change to “Shuttle not ready for launch” and the color should change to red. 
     if (validateInput(cargoMass.value) !== "Is a Number") {
-        alert("Invalid Cargo input!");
-        document.preventDefault();
+        // alert("Invalid Cargo input!");
     } else if (Number(cargoMass.value) > 10000) {
         list.setAttribute("style", "visibility: visible;");
         cargoStatus.innerHTML = `Cargo mass too heavy for launch`;
@@ -70,7 +66,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     }
 
 // If the shuttle is ready to launch, change the text of launchStatus to green and display “Shuttle is ready for launch”.
-    if (pilot.value !== "" && copilot.value !== "" && Number(fuelLevel.value) > 10000 && Number(cargoMass.value) < 10000) {
+    if (pilot.value !== "" && copilot.value !== "" && Number(fuelLevel.value) > 9999 && Number(cargoMass.value) < 10000) {
         list.setAttribute("style", "visibility: visible;");
         h2.innerHTML = `Shuttle is Ready for Launch`;
         h2.setAttribute("style", "color: green;");
@@ -89,9 +85,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
      let planetsReturned;
  
      planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
-        response.json().then( function(json) {
-            console.log(json);
-        });
+        return response.json();
      });
  
      return planetsReturned;
@@ -100,8 +94,8 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  function pickPlanet(planets) {
     let planet = {};
 
-    //get random number and get planet with that index
-    planet = Math.random();
+    let randomIndex = Math.floor(Math.random() * planets.length);
+    planet = planets[randomIndex];
 
     return planet
  }
