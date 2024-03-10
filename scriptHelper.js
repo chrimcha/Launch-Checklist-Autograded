@@ -45,40 +45,38 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         alert("Invalid Name input!");
     }
 
-// change faultyItems to visible with an updated fuel status stating that there is not enough fuel for the journey. // The text of the h2 element, launchStatus, should also change to “Shuttle not ready for launch” and the color should change to red.  
-    if (validateInput(fuelLevel.value) !== "Is a Number") {
-        // alert("Invalid Fuel input!");
-    } else if (Number(fuelLevel.value) < 10000) {
-        list.setAttribute("style", "visibility: visible;");
-        fuelStatus.innerHTML = `Fuel level too low for launch`;
-        h2.innerHTML = `Shuttle Not Ready for Launch`;
-        h2.setAttribute("style", "color: red;");        
-    }
-
-// change the list to visible with an updated cargo status stating that there is too much mass for the shuttle to take off. // The text of launchStatus should also change to “Shuttle not ready for launch” and the color should change to red. 
-    if (validateInput(cargoMass.value) !== "Is a Number") {
-        // alert("Invalid Cargo input!");
-    } else if (Number(cargoMass.value) > 10000) {
-        list.setAttribute("style", "visibility: visible;");
-        cargoStatus.innerHTML = `Cargo mass too heavy for launch`;
-        h2.innerHTML = `Shuttle Not Ready for Launch`;
-        h2.setAttribute("style", "color: red;");
-    }
-
-// If the shuttle is ready to launch, change the text of launchStatus to green and display “Shuttle is ready for launch”.
-    if (pilot.value !== "" && copilot.value !== "" && Number(fuelLevel.value) > 9999 && Number(cargoMass.value) < 10000) {
-        list.setAttribute("style", "visibility: visible;");
-        h2.innerHTML = `Shuttle is Ready for Launch`;
-        h2.setAttribute("style", "color: green;");
-    }
-
-// Using template literals, update the li elements pilotStatus and copilotStatus to include the pilot’s name and the co-pilot’s name.
     let statusOfPilot = document.getElementById("pilotStatus");
     let statusOfCoPilot = document.getElementById("copilotStatus");
 
     statusOfPilot.innerHTML = `Pilot ${pilot.value} is ready for launch`;
     statusOfCoPilot.innerHTML = `Co-pilot ${copilot.value} is ready for launch`;
-  
+ 
+    if (validateInput(fuelLevel.value) !== "Is a Number") {
+        console.log("Invalid Fuel input!");
+    } 
+
+    if (validateInput(cargoMass.value) !== "Is a Number") {
+        console.log("Invalid Cargo input!");
+    }
+    
+    if (Number(fuelLevel.value) < 10000) {
+        fuelStatus.innerHTML = `Fuel level too low for launch`;
+        h2.innerHTML = `Shuttle Not Ready for Launch`;
+        h2.setAttribute("style", "color: red;");        
+    }
+
+    if (Number(cargoMass.value) > 10000) {
+        cargoStatus.innerHTML = `Cargo mass too heavy for launch`;
+        h2.innerHTML = `Shuttle Not Ready for Launch`;
+        h2.setAttribute("style", "color: red;");
+    }
+
+    if (pilot.value !== "" && copilot.value !== "" && Number(fuelLevel.value) > 9999 && Number(cargoMass.value) < 10000) {        
+        h2.innerHTML = `Shuttle is Ready for Launch`;
+        h2.setAttribute("style", "color: green;");
+    }
+    
+    list.setAttribute("style", "visibility: visible;");
  }
  
  async function myFetch() {
