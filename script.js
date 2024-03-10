@@ -37,6 +37,7 @@ window.addEventListener("load", function() {
         let cargoMass = document.querySelector("input[name=cargoMass]").value;
 
         formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass);
+        
         event.preventDefault();
     });
  });
