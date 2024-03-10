@@ -6,7 +6,9 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     // Here is the HTML formatting for our mission target div.
     const destination = document.getElementById("missionTarget");
     destination.innerHTML = `
-                 <h2>Mission Destination</h2>
+                 <h2
+                 >Mission Destination</h2
+                 >
                  <ol>
                      <li>Name: ${name}</li>
                      <li>Diameter: ${diameter}</li>
@@ -33,7 +35,7 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass) {
-    let h2 = document.getElementById("launchStatus");
+    let h2Status = document.getElementById("launchStatus");
     let fuelStatus = document.getElementById("fuelStatus");
     let cargoStatus = document.getElementById("cargoStatus");
 
@@ -58,22 +60,23 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
     if (validateInput(cargoMass.value) !== "Is a Number") {
         console.log("Invalid Cargo input!");
     }
-    
-    if (Number(fuelLevel.value) < 10000) {
+
+    if (Number(fuelLevel.value) > 9999 && Number(cargoMass.value) < 10000) {
+        h2Status.style.color = 'green';     
+        h2Status.innerHTML = `Shuttle is Ready for Launch`;
+    } else if (Number(fuelLevel.value) < 10000 && Number(cargoMass.value) > 10000) {
+        h2Status.style.color = 'red';
+        h2Status.innerHTML = `Shuttle Not Ready for Launch`;
         fuelStatus.innerHTML = `Fuel level too low for launch`;
-        h2.innerHTML = `Shuttle Not Ready for Launch`;
-        h2.setAttribute("style", "color: red;");        
-    }
-
-    if (Number(cargoMass.value) > 10000) {
         cargoStatus.innerHTML = `Cargo mass too heavy for launch`;
-        h2.innerHTML = `Shuttle Not Ready for Launch`;
-        h2.setAttribute("style", "color: red;");
-    }
-
-    if (pilot.value !== "" && copilot.value !== "" && Number(fuelLevel.value) > 9999 && Number(cargoMass.value) < 10000) {        
-        h2.innerHTML = `Shuttle is Ready for Launch`;
-        h2.setAttribute("style", "color: green;");
+    } else if (Number(fuelLevel.value) < 10000 && Number(cargoMass.value) < 10000) {
+        h2Status.style.color = 'red';
+        h2Status.innerHTML = `Shuttle Not Ready for Launch`;
+        fuelStatus.innerHTML = `Fuel level too low for launch`;
+    } else if (Number(cargoMass.value) > 10000 && Number(fuelLevel.value) > 9999) {
+        h2Status.style.color = 'red';
+        h2Status.innerHTML = `Shuttle Not Ready for Launch`;
+        cargoStatus.innerHTML = `Cargo mass too heavy for launch`;
     }
     
     list.setAttribute("style", "visibility: visible;");
