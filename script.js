@@ -31,10 +31,10 @@ window.addEventListener("load", function() {
 
     form.addEventListener("submit", function(event) {        
         let list = document.getElementById("faultyItems");
-        let pilot = document.querySelector("input[name=pilotName]");
-        let copilot = document.querySelector("input[name=copilotName]");
-        let fuelLevel = document.querySelector("input[name=fuelLevel]");
-        let cargoMass = document.querySelector("input[name=cargoMass]");
+        let pilot = document.querySelector("input[name=pilotName]").value;
+        let copilot = document.querySelector("input[name=copilotName]").value;
+        let fuelLevel = document.querySelector("input[name=fuelLevel]").value;
+        let cargoMass = document.querySelector("input[name=cargoMass]").value;
 
         formSubmission(document, list, pilot, copilot, fuelLevel, cargoMass);
         event.preventDefault();
